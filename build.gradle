@@ -33,3 +33,7 @@ jar {
         into('de/nmichael/efa')
     }
 }
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
