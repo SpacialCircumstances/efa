@@ -1,3 +1,23 @@
 plugins {
     id 'java'
 }
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['de/nmichael/efa']
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile files('libs/jsuntimes-1.0.jar')
+    compile 'javax.help:javahelp:2.0.05'
+    compile 'org.apache.xmlgraphics:fop:2.3'
+    compile 'javax.mail:javax.mail-api:1.6.2'
+    compile 'com.sun.mail:javax.mail:1.6.2'
+}

@@ -152,7 +152,7 @@ public class EfaUtil {
     public static boolean isRealChar(KeyEvent e) {
         char c = e.getKeyChar();
         return (Character.isLetter(c) || Character.isDigit(c) || Character.isWhitespace(c)
-                || c == '.' || c == '-' || c == '+' || c == '(' || c == ')' || c == '!' || c == '"' || c == '§' || c == '$' || c == '%'
+                || c == '.' || c == '-' || c == '+' || c == '(' || c == ')' || c == '!' || c == '"' || c == '$' || c == '%'
                 || c == '&' || c == '/' || c == '=' || c == '?' || c == ';' || c == ':' || c == ',' || c == '_' || c == '#' || c == '*'
                 || c == '|' || c == '>' || c == '<');
     }
