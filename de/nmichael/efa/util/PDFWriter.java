@@ -11,6 +11,7 @@ package de.nmichael.efa.util;
 
 import java.io.*;
 import de.nmichael.efa.util.Logger;
+import org.apache.fop.apps.FopFactoryConfig;
 
 // @i18n complete
 public class PDFWriter {
@@ -38,7 +39,7 @@ public class PDFWriter {
                 if (Logger.isTraceOn(Logger.TT_PDF, 5)) {
                     Logger.log(Logger.DEBUG, Logger.MSG_DEBUG_PDF, "Initializing up FOP Factory ...");
                 }
-                org.apache.fop.apps.FopFactory fopFactory = org.apache.fop.apps.FopFactory.newInstance();
+                org.apache.fop.apps.FopFactory fopFactory = org.apache.fop.apps.FopFactory.newInstance(new File(outputFile));
 
                 if (Logger.isTraceOn(Logger.TT_PDF, 5)) {
                     Logger.log(Logger.DEBUG, Logger.MSG_DEBUG_PDF, "Getting FOP Instance ...");
