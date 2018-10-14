@@ -37,3 +37,32 @@ jar {
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
+
+task distribution(type: Zip) {
+    group 'efa'
+    description 'Creates a distribution-ready version of efa'
+    archiveName = 'efa.zip'
+    destinationDir = file("${buildDir}/dist")
+
+    from("root/")
+    from("cfg/") {
+        into "cfg"
+    }
+    from("help/main") {
+        into "doc"
+    }
+    from("/") {
+        include "*.properties", "*.sec"
+        into "program"
+    }
+    from("${buildDir}/libs") {
+        include "*.jar"
+        into "program"
+    }
+    from("plugins") {
+        include "**/*.jar"
+        into "program/plugins"
+    }
+}
+
+distribution.dependsOn jar
