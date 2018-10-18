@@ -51,7 +51,7 @@ task distribution(type: Zip) {
     from("help/main") {
         into "doc"
     }
-    from("/") {
+    from("${projectDir}") {
         include "*.properties", "*.sec"
         into "program"
     }
