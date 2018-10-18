@@ -34,7 +34,7 @@ public class OnlineUpdate {
     private static String lastError;
 
     public synchronized static boolean runOnlineUpdate(JDialog parent, String eouFile) {
-        Vector<OnlineUpdateInfo> versions = null;
+        /*Vector<OnlineUpdateInfo> versions = null;
         lastError = null;
 
         // Online Update
@@ -168,6 +168,8 @@ public class OnlineUpdate {
             afterDownload.success();
         }
         return true;
+        */
+        return false;
     }
 
     public static String getLastError() {
