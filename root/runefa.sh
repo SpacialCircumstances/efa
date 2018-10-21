@@ -40,29 +40,29 @@ CLASSNAME=$1
 CP=program/efa.jar:program/efahelp.jar:program
 
 # OnlineHelp Plugin
-CP=$CP:program/plugins/jh.jar
+CP=$CP:program/plugins/help/jh.jar
 
 # FTP Plugin
-CP=$CP:program/plugins/edtftpj.jar
+CP=$CP:program/plugins/ftp/edtftpj.jar
 
 # Mail Plugin
-CP=$CP:program/plugins/javax.mail.jar
-CP=$CP:program/plugins/activation.jar
+CP=$CP:program/plugins/mail/javax.mail.jar
+CP=$CP:program/plugins/mail/activation.jar
 
 # JSUNTIMES Plugin
-CP=$CP:program/plugins/jsuntimes.jar
+CP=$CP:program/plugins/jsuntimes/jsuntimes.jar
 
 # PDF Plugin
-CP=$CP:program/plugins/avalon-framework.jar
-CP=$CP:program/plugins/batik-all.jar
-CP=$CP:program/plugins/commons-io.jar
-CP=$CP:program/plugins/commons-logging.jar
-CP=$CP:program/plugins/fop.jar
-CP=$CP:program/plugins/xmlgraphics-commons.jar
+CP=$CP:program/plugins/pdf/avalon-framework.jar
+CP=$CP:program/plugins/pdf/batik-all.jar
+CP=$CP:program/plugins/pdf/commons-io.jar
+CP=$CP:program/plugins/pdf/commons-logging.jar
+CP=$CP:program/plugins/pdf/fop.jar
+CP=$CP:program/plugins/pdf/xmlgraphics-commons.jar
 
 # Weather Plugin
-CP=$CP:program/plugins/commons-codec.jar
-CP=$CP:program/plugins/signpost-core.jar
+CP=$CP:program/plugins/weather/commons-codec.jar
+CP=$CP:program/plugins/weather/signpost-core.jar
 
 # ##########################################
 # JVM Settings                             #
