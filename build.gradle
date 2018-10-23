@@ -18,13 +18,12 @@ repositories {
 }
 
 dependencies {
-    compile files('libs/jsuntimes-1.0.jar')
-    compile files('libs/edtftpj.jar')
-    compile 'javax.help:javahelp:2.0.05'
-    compile 'org.apache.xmlgraphics:fop:2.3'
-    compile 'javax.mail:javax.mail-api:1.6.2'
-    compile 'com.sun.mail:javax.mail:1.6.2'
-    compile 'oauth.signpost:signpost-core:1.2.1.2'
+    compile fileTree(dir: "plugins/ftp/", include: ['*.jar'])
+    compile fileTree(dir: "plugins/help/", include: ['*.jar'])
+    compile fileTree(dir: "plugins/jsuntimes/", include: ['*.jar'])
+    compile fileTree(dir: "plugins/mail/", include: ['*.jar'])
+    compile fileTree(dir: "plugins/pdf/", include: ['*.jar'])
+    compile fileTree(dir: "plugins/weather/", include: ['*.jar'])
 }
 
 jar {
