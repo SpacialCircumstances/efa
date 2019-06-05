@@ -5,7 +5,7 @@ plugins {
 sourceSets {
     main {
         java {
-            srcDirs = [projectDir]
+            srcDirs = ["src/main/"]
         }
         resources {
             srcDirs = []
