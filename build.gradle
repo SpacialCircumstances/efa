@@ -18,12 +18,7 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: "plugins/ftp/", include: ['*.jar'])
-    compile fileTree(dir: "plugins/help/", include: ['*.jar'])
-    compile fileTree(dir: "plugins/jsuntimes/", include: ['*.jar'])
-    compile fileTree(dir: "plugins/mail/", include: ['*.jar'])
-    compile fileTree(dir: "plugins/pdf/", include: ['*.jar'])
-    compile fileTree(dir: "plugins/weather/", include: ['*.jar'])
+    compile fileTree(dir: "plugins/", include: ['*.jar'])
 }
 
 jar {
