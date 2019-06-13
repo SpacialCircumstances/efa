@@ -27,7 +27,7 @@ dependencies {
 }
 
 jar {
-    from('scr/main/de/nmichael/efa') {
+    from("$projectDir/src/main/de/nmichael/efa") {
         exclude('**/*.java')
         into('de/nmichael/efa')
     }
