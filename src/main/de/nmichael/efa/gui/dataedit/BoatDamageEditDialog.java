@@ -93,28 +93,47 @@ public class BoatDamageEditDialog extends UnversionizedDataEditDialog implements
 
     protected boolean saveRecord() throws InvalidValueException {
         boolean success = super.saveRecord();
-        if (success && admin != null && dataRecord != null && boatWasDamaged &&
-            ((BoatDamageRecord)dataRecord).getFixed()) {
+        if (success && admin != null && dataRecord != null) {
             BoatDamageRecord r = (BoatDamageRecord) dataRecord;
-            Messages messages = r.getPersistence().getProject().getMessages(false);
-            messages.createAndSaveMessageRecord(r.getReportedByPersonAsName(),
-                    MessageRecord.TO_BOATMAINTENANCE,
-                    r.getReportedByPersonId(),
-                    International.getString("Bootsschaden behoben") + " - " + r.getBoatAsName(),
-                    r.getCompleteDamageInfo() +
-                    "\n" +
-                    International.getString("behoben von") + ": " + r.getFixedByPersonAsName() + "\n" +
-                    International.getString("behoben am") + ": " +
-                        (r.getFixDate() != null && r.getFixDate().isSet() ?
-                            r.getFixDate().toString() : DataTypeDate.today().toString()) + "\n" +
-                    International.getString("Reparaturkosten") + ": " + (r.getRepairCosts() != null ? r.getRepairCosts() : "") + "\n" +
-                    International.getString("Versicherungsfall") + ": " + (r.getClaim() ?
-                        International.getString("ja") :
-                        International.getString("nein") ) + "\n" +
-                    International.getString("Bemerkungen") + ": " + (r.getNotes() != null ? r.getNotes() : "")
-                    );
+            if (boatWasDamaged && ((BoatDamageRecord)dataRecord).getFixed()) {
+                sendFixedMessage(r);
+            } else {
+                sendEditedMessage(r);
+            }
         }
         return success;
+    }
+
+    private static void sendEditedMessage(BoatDamageRecord r) {
+        Messages messages = r.getPersistence().getProject().getMessages(false);
+        messages.createAndSaveMessageRecord(r.getReportedByPersonAsName(),
+                MessageRecord.TO_BOATMAINTENANCE,
+                r.getReportedByPersonId(),
+                "Bootsschaden geändert" + " - " + r.getBoatAsName(),
+                r.getCompleteDamageInfo() +
+                        "\n" +
+                        International.getString("Bemerkungen") + ": " + (r.getNotes() != null ? r.getNotes() : "")
+        );
+    }
+
+    private static void sendFixedMessage(BoatDamageRecord r) {
+        Messages messages = r.getPersistence().getProject().getMessages(false);
+        messages.createAndSaveMessageRecord(r.getReportedByPersonAsName(),
+                MessageRecord.TO_BOATMAINTENANCE,
+                r.getReportedByPersonId(),
+                International.getString("Bootsschaden behoben") + " - " + r.getBoatAsName(),
+                r.getCompleteDamageInfo() +
+                        "\n" +
+                        International.getString("behoben von") + ": " + r.getFixedByPersonAsName() + "\n" +
+                        International.getString("behoben am") + ": " +
+                        (r.getFixDate() != null && r.getFixDate().isSet() ?
+                                r.getFixDate().toString() : DataTypeDate.today().toString()) + "\n" +
+                        International.getString("Reparaturkosten") + ": " + (r.getRepairCosts() != null ? r.getRepairCosts() : "") + "\n" +
+                        International.getString("Versicherungsfall") + ": " + (r.getClaim() ?
+                        International.getString("ja") :
+                        International.getString("nein") ) + "\n" +
+                        International.getString("Bemerkungen") + ": " + (r.getNotes() != null ? r.getNotes() : "")
+        );
     }
     
     public static void newBoatDamage(Window parent, BoatRecord boat) {
