@@ -19,6 +19,7 @@ import de.nmichael.efa.util.Dialog;
 
 import java.awt.*;
 import java.io.*;
+import java.time.Instant;
 import java.util.*;
 
 public class EfaBoathouseBackgroundTask extends Thread {
@@ -676,7 +677,11 @@ public class EfaBoathouseBackgroundTask extends Thread {
 
         long now = System.currentTimeMillis();
         long last = (Daten.efaConfig != null ? Daten.efaConfig.getValueLastBoatDamageReminder() : -1);
-        if (last == -1 || now - BOAT_DAMAGE_REMINDER_INTERVAL > last) {
+        Date current = Date.from(Instant.now());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(current);
+        int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
+        if (weekDay == Calendar.MONDAY && (last == -1 || now - (24 * 60 * 60 * 1000) > last)) {
             boolean damagesOlderThanAWeek = false;
             Vector<DataKey> openDamages = new Vector<DataKey>();
             try {
