@@ -683,7 +683,7 @@ public class EfaBoathouseBackgroundTask extends Thread {
         int weekDay = calendar.get(Calendar.DAY_OF_WEEK);
         boolean sendReport =
                 (weekDay == Calendar.MONDAY && (last == -1 || now - (24 * 60 * 60 * 1000) > last))
-                        || (last == -1 || now - (24 * 60 * 60 * 7) > last);
+                        || (last == -1 || now - (24 * 60 * 60 * 7 * 1000) > last);
         if (sendReport) {
             boolean damagesOlderThanAWeek = false;
             Vector<DataKey> openDamages = new Vector<DataKey>();
