@@ -4609,9 +4609,15 @@ public class EfaBaseFrame extends BaseDialog implements IItemListener {
                     break;
                 case EfaBaseFrame.MODE_BOATHOUSE_FINISH:
                 case EfaBaseFrame.MODE_BOATHOUSE_ABORT:
-                    newStatus = BoatStatusRecord.STATUS_AVAILABLE;
+                    if (boatStatusRecord == null || boatStatusRecord.getBaseStatus() == null) {
+                        newStatus = BoatStatusRecord.STATUS_AVAILABLE;
+                    } else {
+                        // this boat has a defined base status: use this status
+                        newStatus = boatStatusRecord.getBaseStatus();
+                    }             
                     newComment = "";
                     break;
+
                 case EfaBaseFrame.MODE_BOATHOUSE_LATEENTRY:
                     break;
             }
