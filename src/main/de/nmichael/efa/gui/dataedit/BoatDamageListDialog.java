@@ -92,6 +92,20 @@ public class BoatDamageListDialog extends DataListDialog {
         return new BoatDamageEditDialog(parent, (BoatDamageRecord)record, newRecord, admin);
     }
 
+    private void deleteNotification(BoatDamageRecord[] records) {
+        for (BoatDamageRecord record : records) {
+            Messages messages = record.getPersistence().getProject().getMessages(false);
+            messages.createAndSaveMessageRecord(record.getReportedByPersonAsName(),
+                    MessageRecord.TO_BOATMAINTENANCE,
+                    record.getReportedByPersonId(),
+                    "Bootsschaden gelöscht" + " - " + record.getBoatAsName(),
+                    record.getCompleteDamageInfo() +
+                            "\n" +
+                            International.getString("Bemerkungen") + ": " + (record.getNotes() != null ? record.getNotes() : "")
+            );
+        }
+    }
+
     // @Override
     public boolean deleteCallback(DataRecord[] records) {
         BoatDamageRecord unfixedDamage = null;
@@ -102,6 +116,7 @@ public class BoatDamageListDialog extends DataListDialog {
             }
         }
         if (unfixedDamage == null) {
+            deleteNotification((BoatDamageRecord[]) records);
             return true;
         }
 
@@ -126,6 +141,7 @@ public class BoatDamageListDialog extends DataListDialog {
                 dlg.showDialog();
                 return false;
             case 1:
+                deleteNotification((BoatDamageRecord[]) records);
                 return true;
             default:
                 return false;
