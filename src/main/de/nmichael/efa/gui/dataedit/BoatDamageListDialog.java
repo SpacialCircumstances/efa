@@ -92,8 +92,9 @@ public class BoatDamageListDialog extends DataListDialog {
         return new BoatDamageEditDialog(parent, (BoatDamageRecord)record, newRecord, admin);
     }
 
-    private void deleteNotification(BoatDamageRecord[] records) {
-        for (BoatDamageRecord record : records) {
+    private void deleteNotification(DataRecord[] records) {
+        for (DataRecord dr : records) {
+            BoatDamageRecord record = (BoatDamageRecord)dr;
             Messages messages = record.getPersistence().getProject().getMessages(false);
             messages.createAndSaveMessageRecord(record.getReportedByPersonAsName(),
                     MessageRecord.TO_BOATMAINTENANCE,
@@ -116,7 +117,7 @@ public class BoatDamageListDialog extends DataListDialog {
             }
         }
         if (unfixedDamage == null) {
-            deleteNotification((BoatDamageRecord[]) records);
+            deleteNotification(records);
             return true;
         }
 
@@ -141,7 +142,7 @@ public class BoatDamageListDialog extends DataListDialog {
                 dlg.showDialog();
                 return false;
             case 1:
-                deleteNotification((BoatDamageRecord[]) records);
+                deleteNotification(records);
                 return true;
             default:
                 return false;
