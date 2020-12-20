@@ -9,6 +9,7 @@
  */
 package de.nmichael.efa;
 
+import de.nmichael.efa.data.efacloud.TableBuilder;
 import de.nmichael.efa.data.efawett.WettDefs;
 import de.nmichael.efa.core.config.*;
 import de.nmichael.efa.core.items.*;
@@ -41,12 +42,13 @@ import javax.swing.plaf.ColorUIResource;
 public class Daten {
 
     public final static String VERSION            = "2.2.2"; // Version für die Ausgabe (z.B. 2.1.0, kann aber auch Zusätze wie "alpha" o.ä. enthalten)
-    public final static String VERSIONID          = "2.2.2_48";   // VersionsID: Format: "X.Y.Z_MM"; final-Version z.B. 1.4.0_00; beta-Version z.B. 1.4.0_#1
-    public final static String VERSIONRELEASEDATE = "23.07.2020";  // Release Date: TT.MM.JJJJ
+    public final static String VERSIONID          = "2.2.2_49";   // VersionsID: Format: "X.Y.Z_MM"; final-Version z.B. 1.4.0_00; beta-Version z.B. 1.4.0_#1
+    public final static String VERSIONRELEASEDATE = "14.11.2020";  // Release Date: TT.MM.JJJJ
     public final static String MAJORVERSION       = "2";
     public final static String PROGRAMMID         = "EFA.222"; // Versions-ID für Wettbewerbsmeldungen
     public final static String PROGRAMMID_DRV     = "EFADRV.222"; // Versions-ID für Wettbewerbsmeldungen
     public final static String COPYRIGHTYEAR      = "20";   // aktuelles Jahr (Copyright (c) 2001-COPYRIGHTYEAR)
+    public final static int REQUIRED_JAVA_VERSION = 8;
 
     // enable/disable development functions for next version
     public static final boolean NEW_FEATURES = false;
@@ -61,6 +63,7 @@ public class Daten {
     public static String EFA_LIVE      = "efaLive";                          // dummy, will be set in International.ininitalize()
     public static String EFA_WETT      = "efaWett";                          // dummy, will be set in International.ininitalize()
     public static String EFA_REMOTE    = "efaRemote";                        // dummy, will be set in International.ininitalize()
+    public static String EFA_CLOUD     = "efaCloud";                         // dummy, will be set in International.ininitalize()
     public final static String EFA_JAVA_ARGUMENTS = "EFA_JAVA_ARGUMENTS"; // Environment Variable Name containing all arguments passed to the "java" command
     public static String efa_java_arguments = null;                 // Environment Variable Contents containing all arguments passed to the "java" command
     public final static String EFADIREKT_MAINCLASS = de.nmichael.efa.boathouse.Main.class.getCanonicalName();
@@ -190,6 +193,8 @@ public class Daten {
     public static boolean exceptionTest = false; // Exceptions beim Drücken von F1 produzieren (für Exception-Test)
     public static boolean watchWindowStack = false; // Window-Stack überwachen
     public static boolean dateFormatDMY = true;
+
+    public static TableBuilder tableBuilder = new TableBuilder();
 
     // Encoding zum Lesen und Schreiben von Dateien
     public static final String ENCODING_ISO = "ISO-8859-1";
