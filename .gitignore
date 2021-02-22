@@ -1,7 +1,11 @@
-.idea/
+#ignore all artifacts
+/out/
+# ignore idea project files
+/.idea/
+*.iml
+build/
 .gradle/
 build/
-out/
 bin/
 .settings/
 .project

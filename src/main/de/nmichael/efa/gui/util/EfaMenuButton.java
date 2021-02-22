@@ -160,7 +160,7 @@ public class EfaMenuButton {
         if ((admin == null || admin.isAllowedAdministerProjectLogbook()) && Daten.efaConfig.getExperimentalFunctionsActivated()) {
             v.add(new EfaMenuButton(MENU_FILE, BUTTON_EFACLOUD,
                     International.getStringWithMnemonic("Datei"),
-                    International.getStringWithMnemonic("EfaCloud"),
+                    International.getStringWithMnemonic("efaCloud"),
                     BaseFrame.getIcon("menu_efacloud.png")));
         }
         if (Daten.efaConfig.getValueUseFunctionalityCanoeingGermany()) {
@@ -477,7 +477,7 @@ public class EfaMenuButton {
                 return false;
             }
             // The only parent for this button is the EfaCloudSynchDialog.
-            EfaCloudSynchDialog dlg = new EfaCloudSynchDialog(parentDialog, admin);
+            EfaCloudConfigDialog dlg = new EfaCloudConfigDialog(parentDialog, admin);
             dlg.showDialog();
         }
 
