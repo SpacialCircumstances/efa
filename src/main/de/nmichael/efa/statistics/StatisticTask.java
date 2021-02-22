@@ -2384,31 +2384,12 @@ public class StatisticTask extends ProgressTask {
         }
         return true;
     }
-    
-    private boolean checkOnlineUpdateIfNeeded(StatisticsRecord sr) {
-        if (admin != null && Daten.isGuiAppl() && sr.sOutputType == OutputTypes.efawett) { // @todo
-            long lastUpdate = System.currentTimeMillis() - Daten.efaConfig.getValueEfaVersionLastCheck();
-            long versionAge = EfaUtil.getDateDiff(Daten.VERSIONRELEASEDATE, EfaUtil.getCurrentTimeStampDD_MM_YYYY());
-            if (lastUpdate > 7 * 24 * 60 * 60 * 1000 && versionAge > 7) {
-                if (!OnlineUpdate.runOnlineUpdate(lastParentDialog, Daten.ONLINEUPDATE_INFO)) {
-                    Dialog.error("Das Erstellen von Meldedateien erfordert eine aktuelle Version von efa.\n" +
-                                 "Vor dem Fortfahren mit der Meldung ist ein Online-Update erforderlich.");
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 
     private String createStatistic(StatisticsRecord sr, int statisticsNumber) {
         this.sr = sr;
         data = new Hashtable<Object, StatisticsData>();
 
         if (!sr.prepareStatisticSettings(admin)) {
-            return null;
-        }
-        
-        if (!checkOnlineUpdateIfNeeded(sr)) {
             return null;
         }
         
