@@ -119,7 +119,8 @@ public class TxRequestQueue implements TaskManager.RequestDispatcherIF {
     public static final int RQ_QUEUE_PAUSE = 4;                 // from WORKING to PAUSED
     public static final int RQ_QUEUE_RESUME = 3;                // from PAUSED, DISCONNECTED to WORKING
     public static final int RQ_QUEUE_START_SYNCH_DOWNLOAD = 5;  // from WORKING to SYNCHRONIZING
-    public static final int RQ_QUEUE_START_SYNCH_UPLOAD = 6;    // from WORKING to SYNCHRONIZING
+    public static final int RQ_QUEUE_START_SYNCH_UPLOAD = 6;    // from WORKING to SYNCHRONIZING the last 30 days
+    public static final int RQ_QUEUE_START_SYNCH_UPLOAD_ALL = 61; // from WORKING to SYNCHRONIZING all data sets
     public static final int RQ_QUEUE_START_SYNCH_DELETE = 7;    // from WORKING to SYNCHRONIZING
     public static final int RQ_QUEUE_STOP_SYNCH = 8;            // form SYNCHRONIZING to WORKING
     public static final HashMap<Integer, String> RQ_QUEUE_STATE = new HashMap<Integer, String>();
@@ -595,7 +596,8 @@ public class TxRequestQueue implements TaskManager.RequestDispatcherIF {
             registerStateChangeRequest(RQ_QUEUE_AUTHENTICATE);
         } catch (Exception e) {
             Logger.log(Logger.ERROR, Logger.MSG_EFACLOUDSYNCH_ERROR,
-                    International.getString("efaCloud konnte nicht gestartet werden. Fehlermeldung: ") +
+                    International.getString("efaCloud konnte nicht gestartet werden.") +
+                            " " + International.getString("Fehlermeldung") + ": " +
                             e.getMessage());
             if (queueTimer != null)
                 queueTimer.cancel();
@@ -620,7 +622,7 @@ public class TxRequestQueue implements TaskManager.RequestDispatcherIF {
         shiftTx(TX_SYNCH_QUEUE_INDEX, TX_DROPPED_QUEUE_INDEX, dropAction, 0, 0);
         shiftTx(TX_SYNCH_QUEUE_INDEX, TX_PENDING_QUEUE_INDEX, ACTION_TX_MOVE, 0, 0);
         txq.synchControl
-                .logSynchMessage(International.getString("Änderung der Aktivtät der Serverkommunikation: ") + message,
+                .logSynchMessage(International.getString("Änderung der Aktivtät der Serverkommunikation") + ": " + message,
                         "@all", null, true);
     }
 
@@ -750,6 +752,7 @@ public class TxRequestQueue implements TaskManager.RequestDispatcherIF {
                             break;
                         case RQ_QUEUE_PAUSE:
                             if ((currentState == QUEUE_IS_WORKING) || (currentState == QUEUE_IS_IDLE) ||
+                                    (currentState == QUEUE_IS_AUTHENTICATING) ||
                                     (currentState == QUEUE_IS_SYNCHRONIZING)) {
                                 stateTransitionRequests.remove(0);
                                 suspendQueue(RQ_QUEUE_PAUSE);
