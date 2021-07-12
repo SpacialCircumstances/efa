@@ -71,6 +71,7 @@ public class Transaction {
     static {
         TX_RESULT_CODES.put(300, "Transaction completed");
         TX_RESULT_CODES.put(303, "Transaction completed and data key mismatch detected");
+        TX_RESULT_CODES.put(304, "Valid synchronisation check response");  // only used for containers
         TX_RESULT_CODES.put(400, "XHTTPrequest Error"); // (client side generated error, javascript version only)
         TX_RESULT_CODES.put(401, "Syntax error");
         TX_RESULT_CODES.put(402, "Unknown client");
@@ -152,8 +153,8 @@ public class Transaction {
             tx.resultMessage = resultMessage;
         } catch (Exception e) {
             TxRequestQueue.getInstance().logApiMessage(
-                    International.getString("Fehler beim Lesen einer Transaktion vom permanenten Speicher: ") +
-                            txFullString, 1);
+                    International.getString("Fehler beim Lesen einer Transaktion vom permanenten Speicher") +
+                            ": " + txFullString, 1);
         }
         // return result
         return tx;
@@ -198,7 +199,8 @@ public class Transaction {
                 .append(txq.credentials);
         for (Transaction tx : txs) {
             tx.appendTxPostString(txContainer);
-            tx.logMessage("SEND");
+            txq.logApiMessage("#" + tx.ID + ", " + tx.type + " [" + tx.tablename + "]: Transaction sent. Record length: "
+                    + ((tx.record == null) ? "null" : "" + tx.record.length), 0);
             txContainer.append(MESSAGE_SEPARATOR_STRING);
         }
         String txContainerStr = txContainer.toString();
@@ -247,27 +249,6 @@ public class Transaction {
             this.record = extendedRecord;
         } else
             this.record = record;
-    }
-
-    /**
-     * Append a log message to the synch log.
-     *
-     * @param action the action triggering the log activity
-     */
-    void logMessage(String action) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String transactionString = "#" + ID + ", " + type + International.getString(" (record length: ") +
-                ((record == null) ? "null" : "" + record.length) + ")";
-        String dateString = format.format(new Date()) + " [" + tablename + "]: " + action + " ";
-        // truncate log files,
-        File f = new File(TxRequestQueue.logFilePaths.get("synch and activities"));
-        if ((f.length() > 200000) &&
-                (f.renameTo(new File(TxRequestQueue.logFilePaths.get("synch and activities") + ".previous"))))
-            TextResource.writeContents(TxRequestQueue.logFilePaths.get("synch and activities"),
-                    dateString + transactionString, false);
-        else
-            TextResource.writeContents(TxRequestQueue.logFilePaths.get("synch and activities"),
-                    dateString + transactionString, true);
     }
 
     /**
